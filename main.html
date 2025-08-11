@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD Application</title>
+</head>
+</head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f6fa;
+  padding: 20px;
+}
+h2, h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+form {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #555;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button {
+  margin-top: 12px;
+  padding: 8px 15px;
+  background: #4CAF50;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: white;
+  margin-bottom: 5px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+li a {
+  color: #3498db;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+li a:hover {
+  text-decoration: underline;
+}  
+</style>
+<body>
+  <h2>CRUD Application</h2>
+  {{message}}
+  {{#if edit_id}}
+  
+  <h3>Edit</h3>
+  <form method="post" action= "/update_books/{{edit_id}}">
+  <label for="">Title</label>
+  <input type="text" name="title" value="{{edit_book.title}}">
+  <label for="">Author</label>
+  <input type="text" name="author" value="{{edit_book.author}}">
+  <button>submit</button>
+  </form>
+
+{{else}}
+
+  <h3>Create</h3>
+  <form method="post" action= "/store_books">
+  <label for="">Title</label>
+  <input type="text" name="title">
+  <label for="">Author</label>
+  <input type="text" name="author">
+  <button>submit</button>
+  </form>
+{{/if}}
+<ul>
+  {{#each books}}
+  <li> {{this.title}} - {{this.author}}  <a href="/?edit_id={{this._id}}">Edit</a>
+   <a href="/?delete_id={{this._id}}" onclick="return confirm('Are your sure want to detail?')">Delete</a> </li>
+  {{/each}}
+</ul>
+</body>
+</html>
